@@ -2,12 +2,14 @@ import { StatusBar } from "expo-status-bar";
 import {
   Button,
   Dimensions,
+  Image,
   StyleSheet,
   Switch,
   Text,
   TextInput,
   View,
 } from "react-native";
+import { Input } from "./shared/input";
 
 export default function App() {
   const width = Dimensions.get("window").width;
@@ -15,10 +17,14 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text>Pupppp</Text>
+        <Image
+          style={styles.logo}
+          source={require("./assets/logo.png")}
+          resizeMode="contain"
+        />
         <View style={styles.form}>
-          <TextInput style={styles.input}></TextInput>
-          <TextInput style={styles.input}></TextInput>
+          <Input placeholder="Email" />
+          <Input placeholder="Пароль" />
           <Button title="Войти"></Button>
         </View>
         <Text>Восстановить пароль</Text>
@@ -32,6 +38,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 55,
     flex: 1,
+    backgroundColor: "#16171D",
   },
   content: {
     alignItems: "center",
@@ -43,5 +50,8 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "#2E2D3D",
+  },
+  logo: {
+    width: 220,
   },
 });
