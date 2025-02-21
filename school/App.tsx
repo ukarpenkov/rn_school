@@ -9,7 +9,8 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { Input } from "./shared/input";
+import { Input } from "./shared/input/input";
+import { Colors, Gaps } from "./shared/tokens";
 
 export default function App() {
   const width = Dimensions.get("window").width;
@@ -38,18 +39,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 55,
     flex: 1,
-    backgroundColor: "#16171D",
+    backgroundColor: Colors.black,
   },
   content: {
     alignItems: "center",
-    gap: 50,
+    gap: Gaps.g50,
   },
   form: {
     alignSelf: "stretch",
-    gap: 16,
-  },
-  input: {
-    backgroundColor: "#2E2D3D",
+    gap: Gaps.g16,
   },
   logo: {
     width: 220,
