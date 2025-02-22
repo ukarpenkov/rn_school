@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { Input } from "./shared/input/input";
 import { Colors, Gaps } from "./shared/tokens";
+import EyeClosedIcon from "./assets/icons/eye-closed";
+import EyeOpenIcon from "./assets/icons/eye-open";
 
 export default function App() {
   const width = Dimensions.get("window").width;
@@ -29,6 +31,8 @@ export default function App() {
           <Button title="Войти"></Button>
         </View>
         <Text>Восстановить пароль</Text>
+        <EyeClosedIcon/>
+        <EyeOpenIcon/>
       </View>
     </View>
   );
