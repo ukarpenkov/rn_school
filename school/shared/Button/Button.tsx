@@ -1,4 +1,5 @@
 import {
+  Animated,
   Pressable,
   PressableProps,
   StyleSheet,
@@ -8,11 +9,30 @@ import {
 import { Colors, Fonts, Radius } from "../tokens";
 
 export function Button({ text, ...props }: PressableProps & { text: string }) {
+  const animatedValue = new Animated.ValueXY({
+    x: 0,
+    y: 0,
+  });
+  Animated.timing(animatedValue, {
+    toValue: {
+      x: 100,
+      y: 100,
+    },
+    useNativeDriver: true,
+  }).start();
   return (
     <Pressable {...props}>
-      <View style={styles.button}>
+      <Animated.View
+        style={{
+          ...styles.button,
+          transform: [
+            { translateX: animatedValue.x },
+            { translateY: animatedValue.y },
+          ],
+        }}
+      >
         <Text style={styles.text}>{text}</Text>
-      </View>
+      </Animated.View>
     </Pressable>
   );
 }
