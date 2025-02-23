@@ -1,6 +1,5 @@
 import { StatusBar } from "expo-status-bar";
 import {
-  Button,
   Dimensions,
   Image,
   StyleSheet,
@@ -11,8 +10,7 @@ import {
 } from "react-native";
 import { Input } from "./shared/input/input";
 import { Colors, Gaps } from "./shared/tokens";
-import EyeClosedIcon from "./assets/icons/eye-closed";
-import EyeOpenIcon from "./assets/icons/eye-open";
+import { Button } from "./shared/Button/Button";
 
 export default function App() {
   const width = Dimensions.get("window").width;
@@ -27,12 +25,10 @@ export default function App() {
         />
         <View style={styles.form}>
           <Input placeholder="Email" />
-          <Input placeholder="Пароль" />
-          <Button title="Войти"></Button>
+          <Input placeholder="Пароль" isPassword />
+          <Button text="Войти"></Button>
         </View>
         <Text>Восстановить пароль</Text>
-        <EyeClosedIcon/>
-        <EyeOpenIcon/>
       </View>
     </View>
   );
