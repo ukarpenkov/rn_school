@@ -1,22 +1,22 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Switch,
-  Text,
-  TextInput,
-  View,
-} from "react-native";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
 import { Input } from "./shared/input/input";
 import { Colors, Gaps } from "./shared/tokens";
 import { Button } from "./shared/Button/Button";
+import { ErrorNotification } from "./shared/ErrorNotification/ErrorNotification";
+import { useState } from "react";
 
 export default function App() {
+  const [error, setError] = useState<string | undefined>();
   const width = Dimensions.get("window").width;
-
+  const alert = () => {
+    setError("Неверный логин и пароль");
+    setTimeout(() => {
+      setError(undefined);
+    }, 4000);
+  };
   return (
     <View style={styles.container}>
+      <ErrorNotification error={error}></ErrorNotification>
       <View style={styles.content}>
         <Image
           style={styles.logo}
@@ -26,7 +26,7 @@ export default function App() {
         <View style={styles.form}>
           <Input placeholder="Email" />
           <Input placeholder="Пароль" isPassword />
-          <Button text="Войти"></Button>
+          <Button text="Войти" onPress={alert}></Button>
         </View>
         <Text>Восстановить пароль</Text>
       </View>
