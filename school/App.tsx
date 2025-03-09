@@ -6,6 +6,7 @@ import { ErrorNotification } from "./shared/ErrorNotification/ErrorNotification"
 import { useState } from "react";
 
 export default function App() {
+  console.log("fffff444");
   const [error, setError] = useState<string | undefined>();
   const width = Dimensions.get("window").width;
   const alert = () => {
