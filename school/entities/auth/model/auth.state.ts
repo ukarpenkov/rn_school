@@ -6,15 +6,22 @@ import axios, { AxiosError } from 'axios'
 import { API } from '../api/api'
 
 const storage = createJSONStorage<AuthState>(() => AsyncStorage)
+
+const INITIAL_STATE = {
+    access_token: null,
+    isLoading: false,
+    error: null,
+}
+
 export const authAtom = atomWithStorage<AuthState>(
     'auth',
-    {
-        access_token: null,
-        isLoading: false,
-        error: null,
-    },
+    INITIAL_STATE,
     storage
 )
+
+export const logoutAtom = atom(null, (_get, set) => {
+    set(authAtom, INITIAL_STATE)
+})
 
 export const loginAtom = atom(
     (get) => get(authAtom),
