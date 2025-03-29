@@ -3,22 +3,45 @@ import { Input } from '../shared/input/input'
 import { Colors, Gaps } from '../shared/tokens'
 import { Button } from '../shared/Button/Button'
 import { ErrorNotification } from '../shared/ErrorNotification/ErrorNotification'
-import { useState } from 'react'
-import { Link } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { Link, router } from 'expo-router'
 import { CustomLink } from '../shared/CustomLink/CustomLink'
+import { useAtom } from 'jotai'
+import { loginAtom } from '../entities/auth/model/auth.state'
 
 export default function Login() {
-    const [error, setError] = useState<string | undefined>()
-    const width = Dimensions.get('window').width
-    const alert = () => {
-        setError('Неверный логин и пароль')
-        setTimeout(() => {
-            setError(undefined)
-        }, 4000)
+    const [localError, setLocalError] = useState<string | undefined>()
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [{ access_token, isLoading, error }, login] = useAtom(loginAtom)
+
+    const submit = () => {
+        if (!email) {
+            setLocalError('Введите email')
+            return
+        }
+        if (!password) {
+            setLocalError('Введите пароль')
+            return
+        }
+        login({ email, password })
     }
+
+    useEffect(() => {
+        if (error) {
+            setLocalError(error)
+        }
+    }, [error])
+
+    useEffect(() => {
+        if (access_token) {
+            router.replace('/(app)')
+        }
+    }, [access_token])
+
     return (
         <View style={styles.container}>
-            <ErrorNotification error={error}></ErrorNotification>
+            <ErrorNotification error={localError}></ErrorNotification>
             <View style={styles.content}>
                 <Image
                     style={styles.logo}
@@ -26,9 +49,9 @@ export default function Login() {
                     resizeMode="contain"
                 />
                 <View style={styles.form}>
-                    <Input placeholder="Email" />
-                    <Input placeholder="Пароль" isPassword />
-                    <Button text="Войти" onPress={alert}></Button>
+                    <Input placeholder="Email" onChangeText={setEmail} />
+                    <Input placeholder="Пароль" onChangeText={setPassword} />
+                    <Button text="Войти" onPress={submit}></Button>
                 </View>
                 <CustomLink
                     href={'/course/ts'}
