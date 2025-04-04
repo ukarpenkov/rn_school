@@ -5,6 +5,7 @@ import { authAtom } from '../../entities/auth/model/auth.state'
 import { Colors, Fonts } from '../../shared/tokens'
 import { Text } from 'react-native'
 import MenuIcon from '../../assets/icons/menu'
+import { MenuButton } from '../../features/layout/ui/MenuButton/MenuButton'
 
 export default function AppLayout() {
     const { access_token } = useAtomValue(authAtom)
@@ -20,7 +21,7 @@ export default function AppLayout() {
                     shadowOpacity: 0,
                 },
                 headerLeft: () => {
-                    return <MenuIcon />
+                    return <MenuButton navigation={navigation} />
                 },
                 headerTitleStyle: {
                     color: Colors.white,
