@@ -6,6 +6,7 @@ import { Colors, Fonts } from '../../shared/tokens'
 import { Text } from 'react-native'
 import MenuIcon from '../../assets/icons/menu'
 import { MenuButton } from '../../features/layout/ui/MenuButton/MenuButton'
+import { CustomDrawer } from '../../entities/layout/ui/CustomDrawer/CustomDrawer'
 
 export default function AppLayout() {
     const { access_token } = useAtomValue(authAtom)
@@ -14,6 +15,7 @@ export default function AppLayout() {
     }
     return (
         <Drawer
+            drawerContent={(props) => <CustomDrawer {...props} />}
             screenOptions={({ navigation }) => ({
                 headerStyle: {
                     backgroundColor: Colors.blackLight,
