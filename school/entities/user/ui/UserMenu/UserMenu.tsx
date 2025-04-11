@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         gap: Gaps.g8,
         marginTop: 30,
+        marginBottom: 40,
     },
 })
