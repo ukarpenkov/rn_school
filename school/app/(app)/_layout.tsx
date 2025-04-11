@@ -27,7 +27,7 @@ export default function AppLayout() {
                 },
                 headerTitleStyle: {
                     color: Colors.white,
-                    fontFamily: 'FiraSans',
+                    fontFamily: Fonts.regular,
                     fontSize: Fonts.f20,
                 },
                 headerTitleAlign: 'center',
