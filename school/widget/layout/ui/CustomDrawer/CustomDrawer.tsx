@@ -2,18 +2,18 @@ import {
     DrawerContentComponentProps,
     DrawerContentScrollView,
 } from '@react-navigation/drawer'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import { Colors } from '../../../../shared/tokens'
 import { CustomLink } from '../../../../shared/CustomLink/CustomLink'
 import { CloseDrawer } from '../../../../features/layout/ui/CloseDrawer/CloseDrawer'
 import { useAtom, useSetAtom } from 'jotai'
-import { logoutAtom } from '../../../auth/model/auth.state'
-import { loadProfileAtom } from '../../../user/model/user.state'
+import { logoutAtom } from '../../../../entities/auth/model/auth.state'
+import { loadProfileAtom } from '../../../../entities/user/model/user.state'
 import { useEffect } from 'react'
-import { UserMenu } from '../../../user/ui/UserMenu/UserMenu'
+import { UserMenu } from '../../../../entities/user/ui/UserMenu/UserMenu'
 import CourseIcon from '../../../../assets/icons/menu/courses'
 import ProfileIcon from '../../../../assets/icons/menu/profile'
-import { MenuItem } from '../MenuItem/MenuItem'
+import { MenuItem } from '../../../../entities/layout/ui/MenuItem/MenuItem'
 
 const MENU = [
     { text: 'Курсы', path: 'index', icon: <CourseIcon /> },

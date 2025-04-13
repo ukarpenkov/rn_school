@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
 import { ErrorNotificationProps } from './ErrorNotification.props'
-import { Animated, Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Animated, Dimensions, StyleSheet, Text } from 'react-native'
 import { Colors, Fonts } from '../tokens'
-import { transform } from '@babel/core'
 
 export function ErrorNotification({ error }: ErrorNotificationProps) {
     const [isShown, setIsShown] = useState<boolean>(false)
