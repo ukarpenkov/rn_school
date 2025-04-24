@@ -6,6 +6,10 @@ import {
 import { Alert, Pressable, StyleSheet, View, Text } from 'react-native'
 import UploadIcon from '../../assets/icons/uploadIcon'
 import { Colors, Fonts, Gaps, Radius } from '../tokens'
+import FormData from 'form-data'
+import axios, { AxiosError } from 'axios'
+import { FILE_API } from '../api'
+import { UploadResponse } from './ImageUploader.interface'
 
 type ImageUploaderProps = {
     onUpload: (uri: string) => void
@@ -43,7 +47,40 @@ export function ImageUploader({ onUpload }: ImageUploaderProps) {
         if (!result.assets) {
             return
         }
+        await uploadToServer(
+            result.assets[0].uri,
+            result.assets[0].fileName || ''
+        )
         onUpload(result.assets[0].uri)
+    }
+
+    const uploadToServer = async (
+        uri: string,
+        fileName: string
+    ): Promise<null | any> => {
+        const formData = new FormData()
+        formData.append('file', {
+            uri,
+            name: fileName,
+            type: 'image/jpeg',
+        })
+        try {
+            const { data } = await axios.post<UploadResponse>(
+                FILE_API.uploadImage,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            )
+            onUpload(data.urls.original)
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                console.error('Error uploading image:', error.message)
+            }
+            return null
+        }
     }
     return (
         <Pressable onPress={pickImage}>
