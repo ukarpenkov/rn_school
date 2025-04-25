@@ -1,6 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import { User } from '../../model/user.model'
+import { User } from '../../../../entities/user/model/user.model'
 import { Colors, Fonts, Gaps } from '../../../../shared/tokens'
+import { Avatar } from '../../../../entities/user/ui/Avatar/Avatar'
 
 export function UserMenu({ user }: { user: User | null }) {
     if (!user) {
@@ -8,27 +9,13 @@ export function UserMenu({ user }: { user: User | null }) {
     }
     return (
         <View style={styles.container}>
-            {user.profile.photo ? (
-                <Image
-                    style={styles.image}
-                    source={{ uri: user.profile.photo }}
-                />
-            ) : (
-                <Image
-                    source={require('../../../../assets/images/empty_avatar.png')}
-                />
-            )}
+            <Avatar image={user.profile.photo ?? null} />
             <Text style={styles.name}>{user.profile.name}</Text>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-    },
     name: {
         fontSize: Fonts.f16,
         fontFamily: Fonts.regular,
