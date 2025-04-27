@@ -1,4 +1,11 @@
-import { Dimensions, Image, StyleSheet, View } from 'react-native'
+import {
+    Dimensions,
+    Image,
+    KeyboardAvoidingView,
+    Platform,
+    StyleSheet,
+    View,
+} from 'react-native'
 import { Input } from '../shared/input/input'
 import { Colors, Gaps } from '../shared/tokens'
 import { Button } from '../shared/Button/Button'
@@ -47,7 +54,10 @@ export default function Login() {
     return (
         <View style={styles.container}>
             <ErrorNotification error={localError}></ErrorNotification>
-            <View style={styles.content}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={styles.content}
+            >
                 <Image
                     style={styles.logo}
                     source={require('../assets/logo.png')}
@@ -98,7 +108,7 @@ export default function Login() {
                     href={'/restore'}
                     text="Восстановить пароль"
                 ></CustomLink>
-            </View>
+            </KeyboardAvoidingView>
         </View>
     )
 }
@@ -119,7 +129,11 @@ const styles = StyleSheet.create({
         gap: Gaps.g16,
     },
     logo: {
-        width: 220,
+        // width: 220,
+        width: Platform.select({
+            ios: 220,
+            android: 220,
+        }),
     },
     inputs: {
         gap: Gaps.g16,
