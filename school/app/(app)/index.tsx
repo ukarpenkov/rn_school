@@ -9,13 +9,24 @@ import {
 import { useEffect } from 'react'
 import { router, useRootNavigationState } from 'expo-router'
 import { Button } from '../../shared/Button/Button'
+import {
+    courseAtom,
+    loadCourseAtom,
+} from '../../entities/course/model/course.state'
 
 export default function MyCourses() {
-    const logout = useSetAtom(logoutAtom)
+    const { isLoading, courses } = useAtomValue(courseAtom)
+    // console.log('555', courses.my[0])
+
+    const loadCourse = useSetAtom(loadCourseAtom)
+
+    useEffect(() => {
+        loadCourse()
+    }, [])
     return (
         <View>
-            <Text>ind---</Text>
-            <Button text="Выход" onPress={logout} />
+            {courses.length > 0 &&
+                courses.map((course) => <Text>{course.alias} </Text>)}
         </View>
     )
 }

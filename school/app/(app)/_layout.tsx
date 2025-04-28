@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 export default function AppLayout() {
     const { access_token } = useAtomValue(authAtom)
+    console.log(access_token)
     if (!access_token) {
         return <Redirect href="/login" />
     }

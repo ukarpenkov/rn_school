@@ -1,7 +1,7 @@
-import { Image, Share, StyleSheet, View } from 'react-native'
 import { useEffect, useState } from 'react'
-import { Gaps } from '../../shared/tokens'
+import { View, StyleSheet } from 'react-native'
 import { ImageUploader } from '../../shared/ImageUploader/ImageUploader'
+import { Gaps } from '../../shared/tokens'
 import { Avatar } from '../../entities/user/ui/Avatar/Avatar'
 import { useAtom } from 'jotai'
 import { updateProfileAtom } from '../../entities/user/model/user.state'
@@ -11,28 +11,30 @@ import * as Sharing from 'expo-sharing'
 export default function Profile() {
     const [image, setImage] = useState<string | null>(null)
     const [profile, updateProfile] = useAtom(updateProfileAtom)
+
+    const shareProfile = async () => {
+        const isShaingAvailable = await Sharing.isAvailableAsync()
+        if (!isShaingAvailable) {
+            return
+        }
+        await Sharing.shareAsync('https://purpleschool.ru', {
+            dialogTitle: 'Поделиться профилем',
+        })
+    }
+
     const submitProfile = () => {
         if (!image) {
             return
         }
         updateProfile({ photo: image })
     }
+
     useEffect(() => {
         if (profile && profile.profile?.photo) {
             setImage(profile.profile?.photo)
         }
     }, [profile])
 
-    const shareProfile = async () => {
-        if (!profile) return
-        const isSharingAvailable = await Sharing.isAvailableAsync()
-        if (!isSharingAvailable) {
-            return
-        }
-        await Sharing.shareAsync('https://purpleschool.ru/', {
-            dialogTitle: 'Поделиться профилем',
-        })
-    }
     return (
         <View>
             <View style={styles.container}>
