@@ -1,4 +1,10 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import {
+    View,
+    StyleSheet,
+    FlatList,
+    ActivityIndicator,
+    RefreshControl,
+} from 'react-native'
 import { useAtomValue, useSetAtom } from 'jotai'
 import {
     courseAtom,
@@ -6,7 +12,8 @@ import {
 } from '../../entities/course/model/course.state'
 import { useEffect } from 'react'
 import { CourseCard } from '../../entities/course/ui/CourseCard/CourseCard'
-import { Gaps } from '../../shared/tokens'
+import { Colors, Gaps } from '../../shared/tokens'
+import { StudentCourseDescription } from '../../entities/course/model/course.model'
 
 export default function MyCourses() {
     const { isLoading, error, courses } = useAtomValue(courseAtom)
@@ -16,13 +23,39 @@ export default function MyCourses() {
         loadCourse()
     }, [])
 
-    return (
-        <ScrollView>
-            <View style={styles.wrapper}>
-                {courses.my?.length > 0 &&
-                    courses.my.map((c) => <CourseCard {...c} key={c.id} />)}
+    const renderCourse = ({ item }: { item: StudentCourseDescription }) => {
+        return (
+            <View style={styles.item}>
+                <CourseCard {...item} />
             </View>
-        </ScrollView>
+        )
+    }
+
+    return (
+        <>
+            {isLoading && (
+                <ActivityIndicator
+                    size="large"
+                    color={Colors.primary}
+                    style={styles.activity}
+                />
+            )}
+            {courses.my?.length > 0 && (
+                <FlatList
+                    refreshControl={
+                        <RefreshControl
+                            tintColor={Colors.primary}
+                            titleColor={Colors.primary}
+                            refreshing={isLoading}
+                            onRefresh={loadCourse}
+                        />
+                    }
+                    data={courses.my}
+                    keyExtractor={(item) => item.id.toString()}
+                    renderItem={renderCourse}
+                />
+            )}
+        </>
     )
 }
 
@@ -31,5 +64,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         gap: Gaps.g20,
         padding: 20,
+    },
+    item: {
+        padding: 20,
+    },
+    activity: {
+        marginTop: 30,
     },
 })

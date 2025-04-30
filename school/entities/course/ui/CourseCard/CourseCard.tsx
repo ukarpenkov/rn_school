@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { Linking, View } from 'react-native'
 import { StudentCourseDescription } from '../../model/course.model'
 import { StyleSheet } from 'react-native'
 import { Image } from 'react-native'
@@ -11,6 +11,7 @@ export function CourseCard({
     image,
     shortTitle,
     courseOnDirection,
+    alias,
 }: StudentCourseDescription) {
     return (
         <View style={styles.card}>
@@ -31,7 +32,14 @@ export function CourseCard({
                 </View>
             </View>
             <View style={styles.footer}>
-                <Button text="Купить" />
+                <Button
+                    text="Купить"
+                    onPress={() =>
+                        Linking.openURL(
+                            `https://app.purpleschool.ru/course/${alias}`
+                        )
+                    }
+                />
             </View>
         </View>
     )
