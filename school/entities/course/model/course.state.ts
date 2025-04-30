@@ -23,11 +23,11 @@ export const loadCourseAtom = atom(
                 error: null,
             })
             const { data } = await axios.get<StudentCourseDescription[]>(
-                API['my'],
+                API.my,
                 {
-                    // params: {
-                    //     studentCourse: 'dontMy',
-                    // },
+                    params: {
+                        studentCourse: 'my',
+                    },
                     headers: {
                         Authorization: `Bearer ${access_token}`,
                     },

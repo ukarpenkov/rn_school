@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useAtomValue, useSetAtom } from 'jotai'
 import {
     courseAtom,
@@ -17,10 +17,10 @@ export default function MyCourses() {
     }, [])
 
     return (
-        <View style={styles.wrapper}>
-            {courses.length > 0 &&
-                courses.map((c) => <CourseCard {...c} key={c.id} />)}
-        </View>
+        <ScrollView style={styles.wrapper}>
+            {courses.my?.length > 0 &&
+                courses.my.map((c) => <CourseCard {...c} key={c.id} />)}
+        </ScrollView>
     )
 }
 
