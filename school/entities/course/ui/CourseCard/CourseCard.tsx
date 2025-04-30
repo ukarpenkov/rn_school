@@ -9,7 +9,7 @@ import { Colors, Fonts, Gaps, Radius } from '../../../../shared/tokens'
 
 export function CourseCard({
     image,
-    title,
+    shortTitle,
     courseOnDirection,
 }: StudentCourseDescription) {
     return (
@@ -22,7 +22,7 @@ export function CourseCard({
                 style={styles.image}
             />
             <View style={styles.header}>
-                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.title}>{shortTitle}</Text>
                 <View style={styles.chips}>
                     {courseOnDirection.length > 0 &&
                         courseOnDirection.map((course) => (

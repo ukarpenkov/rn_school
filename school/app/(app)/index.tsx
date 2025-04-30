@@ -17,9 +17,11 @@ export default function MyCourses() {
     }, [])
 
     return (
-        <ScrollView style={styles.wrapper}>
-            {courses.my?.length > 0 &&
-                courses.my.map((c) => <CourseCard {...c} key={c.id} />)}
+        <ScrollView>
+            <View style={styles.wrapper}>
+                {courses.my?.length > 0 &&
+                    courses.my.map((c) => <CourseCard {...c} key={c.id} />)}
+            </View>
         </ScrollView>
     )
 }
