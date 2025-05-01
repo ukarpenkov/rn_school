@@ -6,7 +6,8 @@ import { Text } from 'react-native'
 import { Chip } from '../../../../shared/Chip/Chip'
 import { Button } from '../../../../shared/Button/Button'
 import { Colors, Fonts, Gaps, Radius } from '../../../../shared/tokens'
-
+import MaskedView from '@react-native-masked-view/masked-view'
+import { LinearGradient } from 'expo-linear-gradient'
 export function CourseCard({
     image,
     shortTitle,
@@ -30,6 +31,28 @@ export function CourseCard({
                             <Chip text={course.direction.name} />
                         ))}
                 </View>
+                <MaskedView
+                    maskElement={
+                        <Text style={styles.tariff}>
+                            Тариф &laquo;Занятие с наставником&raquo;
+                        </Text>
+                    }
+                >
+                    <LinearGradient
+                        colors={['#D77BE5', '#6C38CC']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 1, y: 0 }}
+                    >
+                        <Text
+                            style={{
+                                ...styles.tariff,
+                                ...styles.tariffWithOpacity,
+                            }}
+                        >
+                            Тариф &laquo;Занятие с наставником'&raquo;
+                        </Text>
+                    </LinearGradient>
+                </MaskedView>
             </View>
             <View style={styles.footer}>
                 <Button
@@ -76,5 +99,13 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
+    },
+    tariff: {
+        marginTop: 10,
+        fontSize: Fonts.f16,
+        fontFamily: Fonts.regular,
+    },
+    tariffWithOpacity: {
+        opacity: 0,
     },
 })
