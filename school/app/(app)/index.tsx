@@ -14,6 +14,8 @@ import { useEffect } from 'react'
 import { CourseCard } from '../../entities/course/ui/CourseCard/CourseCard'
 import { Colors, Gaps } from '../../shared/tokens'
 import { StudentCourseDescription } from '../../entities/course/model/course.model'
+import { Button } from '../../shared/Button/Button'
+import * as Notifications from 'expo-notifications'
 
 export default function MyCourses() {
     const { isLoading, error, courses } = useAtomValue(courseAtom)
@@ -31,6 +33,20 @@ export default function MyCourses() {
         )
     }
 
+    const scheduleNotification = () => {
+        Notifications.scheduleNotificationAsync({
+            content: {
+                title: 'Друг!',
+                body: 'Не забудьте пройти курс',
+                data: { success: true },
+            },
+            trigger: {
+                type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+                seconds: 2,
+            },
+        })
+    }
+
     return (
         <>
             {isLoading && (
@@ -40,6 +56,7 @@ export default function MyCourses() {
                     style={styles.activity}
                 />
             )}
+            <Button text="Напомнить" onPress={scheduleNotification} />
             {courses.my?.length > 0 && (
                 <FlatList
                     refreshControl={
