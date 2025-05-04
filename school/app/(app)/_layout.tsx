@@ -6,6 +6,8 @@ import { Colors, Fonts } from '../../shared/tokens'
 import { MenuButton } from '../../features/layout/ui/MenuButton/MenuButton'
 import { CustomDrawer } from '../../widget/layout/ui/CustomDrawer/CustomDrawer'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import * as Notifications from 'expo-notifications'
+
 
 export default function AppLayout() {
     const { access_token } = useAtomValue(authAtom)

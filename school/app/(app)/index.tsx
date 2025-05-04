@@ -18,7 +18,7 @@ import { Button } from '../../shared/Button/Button'
 import * as Notifications from 'expo-notifications'
 
 export default function MyCourses() {
-    const { isLoading, error, courses } = useAtomValue(courseAtom)
+    const { isLoading, courses } = useAtomValue(courseAtom)
     const loadCourse = useSetAtom(loadCourseAtom)
 
     useEffect(() => {
@@ -33,7 +33,29 @@ export default function MyCourses() {
         )
     }
 
-    const scheduleNotification = () => {
+    const allowNotifications = async () => {
+        const settings = await Notifications.getPermissionsAsync()
+        return (
+            settings.granted ||
+            settings.ios?.status ==
+                Notifications.IosAuthorizationStatus.PROVISIONAL
+        )
+    }
+
+    const requestPermitions = async () => {
+        return await Notifications.requestPermissionsAsync({
+            ios: {
+                allowAlert: true,
+                allowBadge: true,
+                allowSound: true,
+            },
+        })
+    }
+    const scheduleNotification = async () => {
+        const granted = await allowNotifications()
+        if (!granted) {
+            await requestPermitions()
+        }
         Notifications.scheduleNotificationAsync({
             content: {
                 title: 'Друг!',
