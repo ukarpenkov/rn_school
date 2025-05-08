@@ -28,7 +28,7 @@ export default function MyCourses() {
     const renderCourse = ({ item }: { item: StudentCourseDescription }) => {
         return (
             <View style={styles.item}>
-                <CourseCard {...item} />
+                <CourseCard {...item} key={item.id} />
             </View>
         )
     }
@@ -58,9 +58,9 @@ export default function MyCourses() {
         }
         Notifications.scheduleNotificationAsync({
             content: {
-                title: 'Друг!',
-                body: 'Не забудьте пройти курс',
-                data: { success: true },
+                title: 'Новый курс TypeScript',
+                body: 'Начни прямо сейчас',
+                data: { alias: 'typescript' },
             },
             trigger: {
                 type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,

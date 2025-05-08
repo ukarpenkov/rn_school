@@ -1,26 +1,30 @@
-import * as Notifications from 'expo-notifications'
+import * as Notificaitons from 'expo-notifications'
+import { useRouter } from 'expo-router'
 import { useEffect } from 'react'
 
-export function Notification() {
-    Notifications.setNotificationHandler({
+export function Notificaiton() {
+    const router = useRouter()
+
+    Notificaitons.setNotificationHandler({
         handleNotification: async () => ({
-            shouldShowAlert: true,
             shouldPlaySound: true,
             shouldSetBadge: true,
+            shouldShowAlert: true,
         }),
     })
 
     useEffect(() => {
-        const subRecieved = Notifications.addNotificationReceivedListener(
+        const subRecieved = Notificaitons.addNotificationReceivedListener(
             (notification) => {
-                console.log(notification)
+                console.log('first')
             }
         )
         const subResponseReceived =
-            Notifications.addNotificationResponseReceivedListener(
+            Notificaitons.addNotificationResponseReceivedListener(
                 (notification) => {
-                    console.log('notification clicked')
-                    console.log(notification)
+                    const alias =
+                        notification.notification.request.content.data.alias
+                    router.push(`/(app)/course/${alias}`)
                 }
             )
         return () => {
@@ -28,5 +32,6 @@ export function Notification() {
             subResponseReceived.remove()
         }
     }, [])
+
     return <></>
 }
