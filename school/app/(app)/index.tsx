@@ -16,6 +16,8 @@ import { Colors, Gaps } from '../../shared/tokens'
 import { StudentCourseDescription } from '../../entities/course/model/course.model'
 import { Button } from '../../shared/Button/Button'
 import * as Notifications from 'expo-notifications'
+import * as Device from 'expo-device'
+import Constants from 'expo-constants'
 
 export default function MyCourses() {
     const { isLoading, courses } = useAtomValue(courseAtom)
@@ -56,17 +58,24 @@ export default function MyCourses() {
         if (!granted) {
             await requestPermitions()
         }
-        Notifications.scheduleNotificationAsync({
-            content: {
-                title: 'Новый курс TypeScript',
-                body: 'Начни прямо сейчас',
-                data: { alias: 'typescript' },
-            },
-            trigger: {
-                type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
-                seconds: 2,
-            },
-        })
+        if (Device.isDevice) {
+            const token = await Notifications.getExpoPushTokenAsync({
+                projectId: Constants.expoConfig?.extra?.eas.projectId,
+            })
+            console.log(token)
+        }
+        // Notifications.scheduleNotificationAsync({
+        //     content: {
+        //         title: 'Новый курс TypeScript',
+        //         body: 'Начни прямо сейчас',
+        //         data: { alias: 'typescript' },
+        //     },
+        //     trigger: {
+        //         type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        //         seconds: 5,
+        //         repeats: false,
+        //     },
+        // })
     }
 
     return (
