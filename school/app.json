@@ -6,6 +6,11 @@
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "light",
         "backgroundColor": "#16171D",
+        "extra": {
+            "eas": {
+                "projectId": "4c418b6a-abec-4f00-be99-1ea173d27312"
+            }
+        },
         "newArchEnabled": true,
         "splash": {
             "image": "./assets/icon.png",
